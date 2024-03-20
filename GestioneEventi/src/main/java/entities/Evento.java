@@ -2,6 +2,8 @@ package entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "evento")
@@ -27,9 +29,16 @@ public class Evento {
     @Column(name = "maxpartecipanti")
     private int numeromassimopartecipanti;
 
+    @OneToOne(mappedBy = "evento")
+    private Location location;
+
+
+    @ManyToMany(mappedBy = "eventi")
+    private List<Partecipazione> partecipazioni;
+
+
 
     public Evento() {
-
     }
 
     public Evento(String titolo, LocalDate dataEvento, String descrizione, EventType tipo, int numeromassimopartecipanti) {
@@ -39,6 +48,9 @@ public class Evento {
         this.tipo = tipo;
         this.numeromassimopartecipanti = numeromassimopartecipanti;
     }
+
+
+
 
     public long getId() {
         return id;
